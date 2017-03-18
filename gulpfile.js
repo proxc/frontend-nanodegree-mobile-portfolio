@@ -14,14 +14,6 @@ gulp.task('js', () => {
 
 });
 
-gulp.task('images', () => {
-    return gulp.src('./img/*.jpg')
-    .pipe(imagemin({
-        progressive: true
-    }))
-    .pipe(gulp.dest('./dist/images'))
-});
-
 gulp.task('watch', () => {
   console.log('\n', "\x1b[35m", "  Start watch task", '\n');
   gulp.watch('./views/js/main.js', ['js']);
