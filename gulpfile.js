@@ -7,7 +7,12 @@ let uglify = require('gulp-uglify');
 let cssuglify = require('gulp-uglifycss');
 
 gulp.task('css', () => {
-
+    return gulp.src('./css/*.css')
+    .pipe(cssuglify())
+    .pipe(rename( (path) => {
+      path.extname = ".min.css"
+    } ))
+    .pipe(gulp.dest('./dist/css'))
 });
 
 gulp.task('js', () => {
