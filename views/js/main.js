@@ -484,7 +484,7 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
-  var scrollTop = document.body.scrollTop / 1250
+  var scrollTop = document.body.scrollTop / 1250;
   for (var i = 0; i < items.length; i++) {
     var phase = Math.sin(scrollTop + (i % 5));
     var leftPosition = items[i].basicLeft + 100 * phase;
@@ -504,7 +504,7 @@ function updatePositions() {
 // runs updatePositions on scroll
 window.addEventListener('scroll', function() {
   //only update when on the next avalible frame
-  window.requestAnimationFrame( updatePositions )
+  window.requestAnimationFrame( updatePositions );
 });
 
 //place to store items for future use
