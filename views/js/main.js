@@ -422,6 +422,7 @@ var resizePizzas = function(size) {
   changeSliderLabel(size);
 
   // Iterates through pizza elements on the page and changes their widths
+  // updated to have static sizes
   function changePizzaSizes(size) {
     var pizzaContainer = document.getElementsByClassName("randomPizzaContainer");
     var newwidth = '25%';
@@ -478,6 +479,8 @@ function logAverageFrame(times) {   // times is the array of User Timing measure
 // https://www.igvita.com/slides/2012/devtools-tips-and-tricks/jank-demo.html
 
 // Moves the sliding background pizzas based on scroll position
+// update to use trasforms and not positions
+// use prestored pizza items
 function updatePositions() {
   frame++;
   window.performance.mark("mark_start_frame");
@@ -500,10 +503,13 @@ function updatePositions() {
 
 // runs updatePositions on scroll
 window.addEventListener('scroll', function() {
+  //only update when on the next avalible frame
   window.requestAnimationFrame( updatePositions )
 });
 
+//place to store items for future use
 var items = [];
+
 // Generates the sliding pizzas when the page loads.
 document.addEventListener('DOMContentLoaded', function() {
   var cols = 8;
@@ -519,6 +525,7 @@ document.addEventListener('DOMContentLoaded', function() {
     elem.style.left = 0 + 'px';
     document.querySelector("#movingPizzas1").appendChild(elem);
   }
+  //save items so we dont have to find them all the time
   items = document.querySelectorAll('.mover');
   updatePositions();
 });

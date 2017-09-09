@@ -1,36 +1,48 @@
-'use strict';
+"use strict";
 
-let gulp = require('gulp');
-let imagemin = require('gulp-imagemin');
-let rename = require('gulp-rename');
-let uglify = require('gulp-uglify');
-let cssuglify = require('gulp-uglifycss');
+let gulp = require("gulp");
+let browserify = require("browserify");
+let browserSync = require("browser-sync");
+let autoprefixer = require("gulp-autoprefixer");
+let minifycss = require("gulp-uglifycss");
+let concat = require("gulp-concat");
+let notify = require("gulp-notify");
+let sass = require("gulp-sass");
+let plumber = require("gulp-plumber");
 
-gulp.task('css', () => {
-    return gulp.src('./css/*.css')
-    .pipe(cssuglify())
-    .pipe(rename( (path) => {
-      path.extname = ".min.css"
-    } ))
-    .pipe(gulp.dest('./dist/css'))
+//path configs
+let dirRoot = "../";
+
+gulp.task("sass", () => {
+  return gulp
+    .src(dirRoot + "sass/*.sass")
+    .pipe(plumber())
+    .pipe(sass())
+    .pipe(autoprefixer())
+    .pipe(plumber.stop())
+    .pipe(gulp.dest(dirRoot + "css"))
+    .pipe(browserSync.stream());
 });
 
-gulp.task('js', () => {
-
+gulp.task("browser-sync", () => {
+  browserSync.init({
+    server: {
+      baseDir: "./"
+    },
+    // proxy: {
+    //   target: "localhost",
+    //   ws: true
+    // },
+    open: false
+  });
 });
 
-gulp.task('images', () => {
-    return gulp.src('./img/*.jpg')
-    .pipe(imagemin())
-    .pipe(gulp.dest('./dist/images'))
+gulp.task("watch", () => {
+  gulp.watch(dirRoot + "sass/components/**/*.sass", ["sass"]);
+  gulp.watch(dirRoot + "sass/components/**/*.scss", ["sass"]);
+  gulp.watch(dirRoot + "*.html").on("change", browserSync.reload);
 });
 
-gulp.task('watch', () => {
-  console.log('\n', "\x1b[35m", "  Start watch task", '\n');
-  gulp.watch('./views/js/main.js', ['js']);
-});
-
-gulp.task('default', ['watch'], () => {
-  console.log('\n',"\x1b[34m", "  Starting build process",'\n');
-
+gulp.task("default", ["watch", "browser-sync"], () => {
+  console.log("Time to build some shit");
 });
