@@ -518,7 +518,7 @@ document.addEventListener('DOMContentLoaded', function() {
   var s = 256;
   //calculates the number of rows makes sure its a whole number
   var rows = Math.floor(height/s);
-  var pizzas  = cols*rows
+  var pizzas  = cols*rows;
   for (var i = 0; i < pizzas; i++) {
     var elem = document.createElement('img');
     elem.className = 'mover';
