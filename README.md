@@ -23,3 +23,6 @@ updated to save pizza items when they are first created make sure we dont have t
 `changePizzaSizes()` removed unnessary calculations
 `updatePositions()` use prestored pizza items instead of finding them for everytime we have to update positions
 use transform to move them instead of position
+
+`DOMContentLoaded`
+updated number of pizzas created by using the screen size
